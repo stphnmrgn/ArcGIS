@@ -5,7 +5,7 @@ Description: 	This script will output a csv file indicating the layers
                     with broken data sources within MXDs in a given folder.
                     User inputs pathway to map folder.
 Type: 		Standalone script
-Author: 	Stephen Morgan, GISP
+Author: 	C_lupus_rufus, GISP
 Created: 	09/26/2017
 Version:        Python 2.7.8
 '''
