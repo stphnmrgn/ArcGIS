@@ -7,7 +7,7 @@ Description: 	This script will return feature descriptions and then write
                      Feature Dataset, Feature Class Name, Shape Type, 
                      Spatial Reference, Editor, Workspace, and Populated
 Type: 		Standalone script
-Author:      	Stephen Morgan, GISP
+Author:      	C_lupus_rufus, GISP
 Created:     	09/24/2017
 Version:        Python 2.7.8
 '''
