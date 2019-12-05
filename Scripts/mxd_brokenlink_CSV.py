@@ -53,11 +53,29 @@ def csv_template(folder, outputfile):
         # Set variable to include the column headers of the csv
         header = ("Map_Document", "Broken_Layer", "Layer_Data_Source")
         w.writerow(header)
-        rows = crawlmxds(folder)
+        rows = broken_links(folder)
         w.writerows(rows)
 
 
-def crawlmxds(folder):
+def broken_links(folder):
+    """
+    Given a folder path, search folder directory for mxd files.
+
+    Parameters
+    ----------
+    folder: string
+            folder pathway
+
+    Returns
+    -------
+    result: A sequence of feature class information to store in csv file. For each
+    mxd file found, the following information is stored:
+    
+        map name: string
+        map pathway: string
+        map feature layer: string
+        feature layer pathway: string
+    """
     for root, dirs, files in os.walk(folderPath):
         for fileName in files:
             # Crawl folder for files with .mxd extention
@@ -67,8 +85,7 @@ def crawlmxds(folder):
                 # Return MXD properties
                 mxd = mapping.MapDocument(fullPath)
                 print "\nChecking MXD: " + fileName
-                # Return list of broken data sources
-                # Loop broken layers in MXDs
+                # Loop broken layers in MXDs, returning a list
                 brokenlinks = mapping.ListBrokenDataSources(mxd)
                 if brokenlinks == None:
                     fileName = "No broken links were found"
