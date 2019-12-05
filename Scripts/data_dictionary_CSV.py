@@ -5,9 +5,7 @@ Python:         2.7.8
 Purpose:     	Process for extracting information of features in a gdb
 Description: 	This script will return feature descriptions and then write 
                 them in a .csv file. User needs to input pathway of a 
-                geodatabase. Output includes the following: Feature Dataset, 
-                Feature Class Name, Shape Type, Spatial Reference, Editor, 
-                Workspace, and Populated
+                geodatabase.
 Type: 		    Standalone script
 Author:      	Stephen Morgan, GISP
 Date Created:   09/24/2017
