@@ -38,6 +38,7 @@ def csv_template(folder, outputfile):
     ----------
     folder: string
             folder pathway
+
     outputfile: string
             pathway & filename
 
