@@ -76,6 +76,7 @@ def broken_links(folder):
         map feature layer: string
         feature layer pathway: string
     """
+    
     for root, dirs, files in os.walk(folderPath):
         for fileName in files:
             # Crawl folder for files with .mxd extention
