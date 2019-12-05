@@ -2,12 +2,12 @@
 """
 Title:          mxd_brokenlink_CSV.py
 Python:         2.7.8
-Purpose: 	    List broken data sources in MXDs and write to a .csv file
+Purpose:        List broken data sources in MXDs and write to a .csv file
 Description: 	This script will output a csv file indicating the layers
                 with broken data sources within MXDs in a given folder.
                 User inputs pathway to map folder.
-Type: 		    Standalone script
-Author: 	    Stephen Morgan, GISP
+Type:           Standalone script
+Author:         Stephen Morgan, GISP
 Date Created: 	09/26/2017
 """
 

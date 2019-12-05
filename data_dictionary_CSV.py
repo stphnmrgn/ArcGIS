@@ -6,7 +6,7 @@ Purpose:     	Process for extracting information of features in a gdb
 Description: 	This script will return feature descriptions and then write 
                 them in a .csv file. User needs to input pathway of a 
                 geodatabase.
-Type: 		    Standalone script
+Type:           Standalone script
 Author:      	Stephen Morgan, GISP
 Date Created:   09/24/2017 
 """

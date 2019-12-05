@@ -6,8 +6,8 @@ Purpose: 	    List data in MXDs and write to a .csv file
 Description:    This script will output a csv file indicating the pathways
                 of all features within MXDs in a given folder. User inputs 
                 pathway to map folder.
-Type: 		    Standalone script
-Author: 	    Stephen Morgan, GISP
+Type:           Standalone script
+Author:         Stephen Morgan, GISP
 Date Created:   09/26/2017
 Updated:        03/08/2019
 """
@@ -41,7 +41,7 @@ def csv_template(folder, outputfile):
     ----------
     folder: string
             folder pathway
-            
+
     outputfile: string
             pathway & filename
 
