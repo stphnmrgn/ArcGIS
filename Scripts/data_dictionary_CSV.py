@@ -24,25 +24,16 @@ from arcpy import env
 workspace = input('Type/paste the full pathway to your GDB folder, and then press Enter.'
                    ' \nExample, r"C:Project\GIS\MyData.gdb": ')
 
-# Set env.workspace to user's workspace
-env.workspace = workspace
-
-# Return base name of pathway (name of folder)
-fullname = os.path.basename(workspace)
-
-# Strip extension off workspace name
-name = fullname.strip(".gdb")
-
-# Store folder name as string variable for the 'path_csv'
-path_csv = os.path.dirname(workspace) + os.sep + \
-     name + "_datadictionary.csv"
+env.workspace = workspace # Set env.workspace to user's workspace
+fullname = os.path.basename(workspace) # Return base name of pathway (name of folder)
+name = fullname.strip(".gdb" ) # Strip extension off workspace name
+path_csv = os.path.dirname(workspace) + os.sep + name + "_datadictionary.csv" # Store folder name as string
 
 print "\nYour geodatabase directory: \n" + os.path.dirname(workspace)
 print "\nThe name of your workspace: \n" + fullname
 print "\nThe path to the csv we're creating: \n" + path_csv
 
 
-# Setup the CSV file
 def csv_template(folder, outputfile):
     """
     Given a folder path, create a csv template.

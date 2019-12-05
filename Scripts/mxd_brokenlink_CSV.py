@@ -22,21 +22,33 @@ import time
 workspace = input('Type/paste the full pathway to your maps folder, and then press Enter.'
                   ' \nExample, r"C:Project\GIS\Maps": ')
 
+fullname = os.path.basename(workspace) # Return base name of pathway (name of folder)
+path_csv = os.path.dirname(workspace) + os.sep + fullname + "_mxdbrokenlinks.csv" # Store folder name as string
+
 print "\nYour map directory: \n" + os.path.dirname(workspace)
-
-# Return base name of pathway (name of folder)
-fullname = os.path.basename(workspace)
 print "\nThe name of your map folder: \n" + fullname
-
-# Store folder name as string variable for the 'path_csv'
-path_csv = os.path.dirname(workspace) + os.sep + \
-    fullname + "_mxdbrokenlinks.csv"
 print "\nThe path of csv we're creating: \n" + path_csv
 
 
-# Setup the CSV file
-def main(folder, outputfile):
+def csv_template(folder, outputfile):
+    """
+    Given a folder path, create a csv template.
+
+    Parameters
+    ----------
+    folder: string
+            folder pathway
+    outputfile: string
+            pathway & filename
+
+    Returns
+    -------
+    result: template csv file saved using the user specified file name
+    and folder destination.
+    """
+    
     with open(outputfile, "wb") as f:
+        print "\nCreating template csv file...\n"
         w = csv.writer(f)
         # Set variable to include the column headers of the csv
         header = ("Map_Document", "Broken_Layer", "Layer_Data_Source")
@@ -82,9 +94,9 @@ def crawlmxds(folder):
 
 
 if __name__ == "__main__":
-    folderPath = workspace  # or arcpy.GetParameterAsText(0)
-    output = path_csv  # or arcpy.GetParameterAsText(1)
-    main(folderPath, output)
+    folderPath = workspace      # or arcpy.GetParameterAsText(0)
+    output = path_csv           # or arcpy.GetParameterAsText(1)
+    csv_template(folderPath, output)
 
 time.sleep(6)
 
