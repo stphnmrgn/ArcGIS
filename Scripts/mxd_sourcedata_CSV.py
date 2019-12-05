@@ -1,21 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 Title: 		    mxd_sourcedata_CSV.py
-
+Python:         Python 2.7.8
 Purpose: 	    List data in MXDs and write to a .csv file
-
-Description:        This script will output a csv file indicating the pathways
-                    of all features within MXDs in a given folder.
-                    User inputs pathway to map folder.
-                    
+Description:    This script will output a csv file indicating the pathways
+                of all features within MXDs in a given folder. User inputs 
+                pathway to map folder.
 Type: 		    Standalone script
-
-Author: 	    C_lupus_rufus, GISP
-
-Created: 	    09/26/2017
-Updated:            03/08/2019
-
-Version:            Python 2.7.8
+Author: 	    Stephen Morgan, GISP
+Date Created:   09/26/2017
+Updated:        03/08/2019
 """
 
 # Import modules
