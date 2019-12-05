@@ -56,11 +56,11 @@ def csv_template(folder, outputfile):
         # Set variable to include column headers of the csv
         header = ("Map_Document", "MXD_Path", "Layer_Name", "Layer_Data_Source")
         w.writerow(header)
-        rows = crawlmxds(folder)
+        rows = mxd_data_source(folder)
         w.writerows(rows)
 
 
-def crawlmxds(folder):
+def mxd_data_source(folder):
     """
     Given a folder path, search folder directory for mxd files.
 
@@ -81,7 +81,6 @@ def crawlmxds(folder):
     """
 
     print "\nChecking data sources of each MXD...\n"
-    # arcpy.AddMessage("Checking data sources of each MXD...")
     for root, dirs, files in os.walk(folderPath):
         for f in files:
             # Crawl folder for files with .mxd extention
@@ -90,19 +89,16 @@ def crawlmxds(folder):
                 mxdName = os.path.splitext(f)[0]
                 mxdPath = os.path.join(root, f)
                 print "     Checking MXD titled: " + mxdName
-                # arcpy.AddMessage("\nChecking MXD titled: " + mxdName)
-                
+
                 # Return MXD properties
                 mxd = mapping.MapDocument(mxdPath)
-
                 # Return list of layers for MXDs
                 layers = mapping.ListLayers(mxd, "")
                 # Loop layers in MXDs
                 for lyr in layers:
                     lyrName = lyr.name
                     # Return data source/pathway for each layer in MXD
-                    lyrDatasource = lyr.dataSource if lyr.supports(
-                        "dataSource") else "N/A"
+                    lyrDatasource = lyr.dataSource if lyr.supports("dataSource") else "N/A"
                     # Put all these variables in order for the .csv file
                     seq = (mxdName, mxdPath, lyrName, lyrDatasource)
                     yield seq
