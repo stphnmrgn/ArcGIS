@@ -43,37 +43,54 @@ print "\nThe path to the csv we're creating: \n" + path_csv
 
 
 # Setup the CSV file
-def main(folder, outputfile):
+def csv_template(folder, outputfile):
+    """
+    Given a folder path, create a csv template.
+
+    Parameters
+    ----------
+    folder: string
+            folder pathway
+    outputfile: string
+            pathway & filename
+
+    Returns
+    -------
+    result: template csv file saved using the user specified file name
+    and folder destination.
+    """
+
      with open(outputfile, "ab") as f:
-         # Start writing
+         print "\nCreating template csv file...\n"
          w = csv.writer(f)
          # Set variable to include column headers of the csv
          header = ("Feature_Dataset", "Feature_Class", "Shape_Type", "Populated", 
                     "Feature_Count", "Workspace", "Spatial_Reference", "Editor")
-                    
          w.writerow(header)
-         rows = describe(folder)
+         rows = describe_data(folder)
          w.writerows(rows)
 
 
-def describe(folder):
+def describe_data(folder):
      print "\nReading & Writing Feature Descriptions... \n"
-
      # Create a list of feature classes and datasets
      fcList = arcpy.ListFeatureClasses()
      datasetList = arcpy.ListDatasets('*', 'Feature')
-
+     
      # Loop through feature classes
      for fc in fcList:
          print "    feature: " + fc
-         
-         # return specific describe objects to write to csv
+
+        # Describe object of gdb from user's workspace, return gdb name
+         desc = arcpy.Describe(workspace)
+         gdb = desc.name
+         # Describe object of feature classes
          desc = arcpy.Describe(fc)
          sr = desc.spatialReference.name
          st = desc.shapeType
-         # Return dataType object so Editor Tracking objects can be returned
+         # So Editor Tracking objects can be returned
          dt = desc.dataType
-            
+
          # If feature class has editor tracker enabled, return editorFieldName
          if desc.editorTrackingEnabled:
              who = desc.editorFieldName
@@ -81,14 +98,12 @@ def describe(folder):
             # and create a dictionary of the user's name
              userDictionary = {}
              cur = arcpy.da.SearchCursor(fc, [who])
-
              for row in cur:
                  featureEditedBy = row[0]
                  if featureEditedBy in userDictionary:
                      userDictionary[featureEditedBy] += 1
                  else:
                      userDictionary[featureEditedBy] = 1
-
              for user in list(userDictionary.keys()):
                 # If editor tracking is on and editorFieldName is None (no data),
                 # then user's set to "Null", else field is set to the user's name
@@ -99,30 +114,28 @@ def describe(folder):
          else:
              who = ("Editor tracker not enabled")
 
-        # If feature count of first attribute field = zero then
-        # feature is not populated, else the feature is populated   
         # Get number of features in feature classes first
+        # If feature count of first attribute field = zero then
+        # feature is not populated, else the feature is populated        
          fc_count = arcpy.management.GetCount(fc)
          if fc_count[0] == "0":
              pop = "False"
          else:
              pop = "True"
 
-        # Create Describe object of gdb from user's workspace, return gdb name
-         desc = arcpy.Describe(workspace)
-         gdb = desc.name
-
         # Put all these variables in order for the .csv file
          seq = ('"Not in Feature Dataset"', fc, st, pop, fc_count, gdb, sr, who)
-
          yield seq
 
      # Same, except for features within a dataset
      for dataset in datasetList:
          setList = arcpy.ListFeatureClasses("*", "", dataset)
-
+         
          for fc in setList:
              print "    feature: " + fc
+
+             desc = arcpy.Describe(workspace)
+             gdb = desc.name
              desc = arcpy.Describe(fc)
              st = desc.shapeType
              sr = desc.spatialReference.name
@@ -132,14 +145,12 @@ def describe(folder):
                  who = desc.editorFieldName
                  userDictionary = {}
                  cur = arcpy.da.SearchCursor(fc, [who])
-
                  for row in cur:
                      featureEditedBy = row[0]
                      if featureEditedBy in userDictionary:
                          userDictionary[featureEditedBy] += 1
                      else:
                          userDictionary[featureEditedBy] = 1
-
                  for user in list(userDictionary.keys()):
                      if user == None:
                          who = "Null"
@@ -154,18 +165,14 @@ def describe(folder):
              else:
                  pop = "True"
 
-             desc = arcpy.Describe(workspace)
-             gdb = desc.name
-
              seq = (dataset, fc, st, pop, fc_count, gdb, sr, who)
-
              yield seq
 
 
 if __name__ == "__main__":
-     folderPath = workspace
-     output = path_csv
-     main(folderPath, output)
+    folderPath = workspace      # or arcpy.GetParameterAsText(0)
+    output = path_csv           # or arcpy.GetParameterAsText(1)
+    csv_template(folderPath, output)
 
 
 print "\nSpam and Eggs are Done\n"
