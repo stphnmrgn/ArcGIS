@@ -1,11 +1,10 @@
-'''
+"""
 Title: 		DetectRasterizingLayers.py
 Purpose: 	Execute this arcpy.mapping script in the Python Window of ArcMap
           to report any layers in your map that may be causing rasterization
           during printing or exporting
 Author: 	Stephen Morgan
-Created: 	09/26/2017
-'''
+"""
 
 # Import modules
 import arcpy

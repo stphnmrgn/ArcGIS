@@ -12,7 +12,7 @@ Type:           Standalone script
 
 Author:      	Stephen Morgan, GISP
 
-Version:         2.7.8
+Version:        2.7.8
 """
 
 import os

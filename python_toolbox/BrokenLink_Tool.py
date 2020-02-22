@@ -1,15 +1,14 @@
-'''
+"""
 Title: 		BrokenLink_Tool.py
 Purpose: 	List broken data sources in MXDs and write to a .csv file
 Type: 		Python Toolbox
 Author: 	Stephen Morgan
-'''
+"""
 
 import arcpy
 import sys
 import os
 import csv
-
 
 
 print "Enter folder path:"
