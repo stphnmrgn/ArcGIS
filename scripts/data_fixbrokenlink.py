@@ -1,22 +1,27 @@
-'''
+# -*- coding: utf-8 -*-
+"""
 Title: 		    data_fixbrokenlink.py
 
 Purpose: 	    Replace layer workspace of all features in map folder
 
-Description:        If a series of maps have broken links as the result of
-                    renaming a geodatabase, this standalone script will fix 
-                    the broken links for all the maps within a folder.
+Description:    If a series of maps have broken links as the result of
+                renaming a geodatabase, this standalone script will fix 
+                the broken links for all the maps within a folder.
 
 Type: 		    Standalone script
+
 Author: 	    Stephen Morgan, GISP
-Created: 	    03/16/2018
+
 Version:        Python 2.7.8
-'''
+"""
 
 # Import modules
 import os
 from arcpy import mapping
 
+
+
+########################## USER INPUTS ##########################
 
 # Get user's map folder pathway
 workspace = input('\nType/paste the full pathway to your maps folder, and then press Enter.'
@@ -30,12 +35,12 @@ old_gdb = input('\nType/paste the full pathway of the old workspace, then press 
 new_gdb = input('\nType/paste the full pathway of the new workspace, then press Enter.'
                 ' \nExample, r"L:\DPE\MyProject\NEW_GDB.gdb": ')
 
-print '\nYour map directory: \n' + os.path.dirname(workspace)
+########################## USER INPUTS ##########################
 
-# Return base name of pathway (name of folder)
 fullname = os.path.basename(workspace)
-print '\nThe name of your map folder: ' + fullname
 
+print '\nYour map directory: \n' + os.path.dirname(workspace)
+print '\nThe name of your map folder: ' + fullname
 print "\nThe two workspaces we're switching out: "
 print os.path.basename(old_gdb)
 print os.path.basename(new_gdb)

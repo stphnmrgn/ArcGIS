@@ -1,37 +1,35 @@
+# -*- coding: utf-8 -*-
 """
-Title: 		data_fixbrokenlink2.py
+Title: 		    data_fixbrokenlink_fc_rename.py
 
-Purpose: 	Replace broken layers workspace for all MXDs in a folder
+Purpose: 	    Replace broken layer's workspace for all MXDs in a folder
 
 Description:    This standalone script will find and replace a specific
                 workspace path for the broken layers in all maps within a
-                folder.For each map, it will only search for feature that
+                folder. For each map, it will only search for the feature that
                 is broken. If it matches the user provided broken feature,
-                then it replaces that path with a new workspace path. This
-                was developed to relink layers that were broken as a result
-                of renaming a geodatabase.
+                then it replaces that path with a new workspace path.
 
                 The validate parameter is not set (default value is True)
                 meaning the workspace will only be updated if the
-                replace_workspace_path value is a  valid workspace. If it
+                replace_workspace_path value is a valid workspace. If it
                 is not valid, the workspace will not be replaced. 
 
-                Example: Maps in a folder use many layers that connect to
-                a workspace path (L:\GIS\Data\MyGeodatabase.gdb) that has
-                recently been renamed. A user needs to relink the many layers
-                in each of these maps to the renamed geodatabase
-                (L:\GIS\Data\RenamedGeodatabase.gdb).
+                Example: Many maps in a folder use a layer that was renamed.
+                A user needs to relink the many layers in each of these maps to 
+                the renamed feature.
 
-Type: 		Standalone script
-Author: 	Stephen Morgan, GISP
-Created: 	03/16/2018
-Updated:        05/02/2018
+Type: 		    Standalone script
+
+Author: 	    Stephen Morgan, GISP
+
 Version:        Python 2.7.8
 """
 
-# Import modules
+
 import os
 from arcpy import mapping
+
 
 
 ########################## USER INPUTS ##########################
@@ -50,31 +48,35 @@ renamed_feature = input('\nType/paste the full pathway of the new feature, then 
 
 ########################## USER INPUTS ##########################
 
-
-
-# Return the base name of map directory (name of folder)
 fullname = os.path.basename(original_feature)
-print '\nThe original feature, ' + fullname + ', will be checked against a list of broken layers.'
-'\nIf a match is found, then the data source will be replaced with the new feature'
-
-
 # Set user inputs to variables that will be passed to lyr.replaceDataSource(
 # workspace_path, workspace_type, dataset_name, {validate})
-
 # return feature name from renamed_feature, passed as dataset_name
 renamed_feature_basename = os.path.basename(renamed_feature)
-print '\nThe new feature that will replace the original feature: ' + renamed_feature_basename
-
 # return feature's directory from renamed_feature, passsed as workspace_path
 renamed_feature_workspace = os.path.dirname(renamed_feature)
 
+print '\nThe original feature, ' + fullname + ', will be checked against a list of broken layers.'
+'\nIf a match is found, then the data source will be replaced with the new feature'
+
+print '\nThe new feature that will replace the original feature: ' + renamed_feature_basename
+
 
 def crawlmxds(folder):
-    '''
-    This function takes a folder directory that contains map documents. 
-    It opens every file with extension ".mxd", creates a list of layers with broken data links, replaces
-    the workspace of broken layers that match user's input, then saves and closes each file.
-    '''
+    """
+    Given a directory search for mxd files. Every file with extension ".mxd" will 
+    be opened in order to list layers with broken data links. If user input matches
+    any features listed, it then replaces the workspace of broken layers.
+
+    Parameters
+    ----------
+    folder: string, directory to map documents
+
+    Returns
+    -------
+    result: relinked feature data sources.
+    """
+
     for root, dirs, files in os.walk(folderPath):
         for f in files:
             # Crawl folder for files with .mxd extention

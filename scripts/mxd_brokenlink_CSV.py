@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 """
 Title:          mxd_brokenlink_CSV.py
-Python:         2.7.8
+
 Purpose:        List broken data sources in MXDs and write to a .csv file
+
 Description: 	This script will output a csv file indicating the layers
                 with broken data sources within MXDs in a given folder.
                 User inputs pathway to map folder.
+
 Type:           Standalone script
+
 Author:         Stephen Morgan, GISP
-Date Created: 	09/26/2017
+
+Python:         2.7.8
 """
 
 # Import modules
@@ -18,12 +22,18 @@ from arcpy import mapping
 import time
 
 
+
+########################## USER INPUTS ##########################
+
 # Get user's map folder pathway
 workspace = input('Type/paste the full pathway to your maps folder, and then press Enter.'
                   ' \nExample, r"C:Project\GIS\Maps": ')
 
-fullname = os.path.basename(workspace) # Return base name of pathway (name of folder)
-path_csv = os.path.dirname(workspace) + os.sep + fullname + "_mxdbrokenlinks.csv" # Store folder name as string
+########################## USER INPUTS ##########################
+
+fullname = os.path.basename(workspace)
+# Store folder name as string
+path_csv = os.path.dirname(workspace) + os.sep + fullname + "_mxdbrokenlinks.csv"
 
 print "\nYour map directory: \n" + os.path.dirname(workspace)
 print "\nThe name of your map folder: \n" + fullname
@@ -60,12 +70,11 @@ def csv_template(folder, outputfile):
 
 def mxd_broken_links(folder):
     """
-    Given a folder path, search folder directory for mxd files.
+    Given a folder path, search folder directory for mxd files with broken links
 
     Parameters
     ----------
-    folder: string
-            folder pathway
+    folder: string, folder pathway
 
     Returns
     -------
