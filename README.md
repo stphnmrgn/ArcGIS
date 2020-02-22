@@ -1,2 +1,2 @@
 # ArcGIS
-Python 2.7 scripts for Esri ArcGIS for Desktop 10.3+ 
+Various python (standalone and toolbox) scripts that were developed for use with Esri ArcGIS for Desktop 10.3.
